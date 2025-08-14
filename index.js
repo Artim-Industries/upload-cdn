@@ -30,10 +30,6 @@ async function run() {
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
     const fileStream = createReadStream(filePath);
 
-    const headers = {
-      'Authorization': `Basic ${btoa(`${username}:${password}`)}`
-    };
-
     console.log(`Uploading to: ${uploadUrl}`);
 
     const formData = new FormData();
@@ -41,7 +37,7 @@ async function run() {
     const response = await fetch(uploadUrl, {
         method: "POST",
         headers: {
-            Authorization: "Basic " + btoa(answers.username + ":" + answers.password),
+            Authorization: "Basic " + btoa(username + ":" + password),
             Accept: "application/json",
         },
         body: formData,

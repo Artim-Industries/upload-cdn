@@ -43444,10 +43444,6 @@ async function run() {
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
     const fileStream = (0,external_fs_.createReadStream)(filePath);
 
-    const headers = {
-      'Authorization': `Basic ${index_btoa(`${username}:${password}`)}`
-    };
-
     console.log(`Uploading to: ${uploadUrl}`);
 
     const formData = new (form_data_default())();
@@ -43455,7 +43451,7 @@ async function run() {
     const response = await index_fetch(uploadUrl, {
         method: "POST",
         headers: {
-            Authorization: "Basic " + index_btoa(answers.username + ":" + answers.password),
+            Authorization: "Basic " + index_btoa(username + ":" + password),
             Accept: "application/json",
         },
         body: formData,
