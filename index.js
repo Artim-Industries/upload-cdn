@@ -25,7 +25,7 @@ async function run() {
     const fileNameWithExt = path.basename(filePath);
     const [fileName, fileExtension] = fileNameWithExt.split(/\.(.+)$/); // split on first dot
 
-    const dateFormattedAsText = new Date().toISOString().split('T')[0];
+    const dateFormattedAsText = new Date().toISOString();
 
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
     const fileStream = createReadStream(filePath);
