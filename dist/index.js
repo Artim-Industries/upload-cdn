@@ -41158,6 +41158,18 @@ module.exports = /*#__PURE__*/JSON.parse('{"application/1d-interleaved-parityfec
 /******/ 	__nccwpck_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -43394,13 +43406,19 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 	});
 }
 
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(9896);
+// EXTERNAL MODULE: ./node_modules/form-data/lib/form_data.js
+var form_data = __nccwpck_require__(6454);
+var form_data_default = /*#__PURE__*/__nccwpck_require__.n(form_data);
 ;// CONCATENATED MODULE: ./index.js
 const core = __nccwpck_require__(7484);
 const fs = __nccwpck_require__(9896);
 const path = __nccwpck_require__(6928);
 const axios = __nccwpck_require__(7269);
-const index_FormData = __nccwpck_require__(6454);
   
+
+
 
 // Base64 encode for Basic Auth
 function index_btoa(str) {
@@ -43424,7 +43442,7 @@ async function run() {
     const dateFormattedAsText = new Date().toISOString().split('T')[0];
 
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
-    const fileBuffer = fs.readFileSync(filePath);
+    const fileStream = (0,external_fs_.createReadStream)(zipPath);
 
     const headers = {
       'Authorization': `Basic ${index_btoa(`${username}:${password}`)}`
@@ -43432,12 +43450,15 @@ async function run() {
 
     console.log(`Uploading to: ${uploadUrl}`);
 
-    const formData = new index_FormData();
-    formData.append("file", fileBuffer);
+    const formData = new (form_data_default())();
+    formData.append("file", fileStream);
     const response = await index_fetch(uploadUrl, {
-        "method": "POST",
-        "headers": headers,
-        "body": formData
+        method: "POST",
+        headers: {
+            Authorization: "Basic " + index_btoa(answers.username + ":" + answers.password),
+            Accept: "application/json",
+        },
+        body: formData,
     });
 
     if (response.status === 200 || response.status === 201) {

@@ -2,8 +2,9 @@ const core = require('@actions/core');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const FormData = require('form-data');
 import fetch from 'node-fetch';  
+import { createReadStream } from 'fs';
+import FormData from 'form-data';
 
 // Base64 encode for Basic Auth
 function btoa(str) {
@@ -27,7 +28,7 @@ async function run() {
     const dateFormattedAsText = new Date().toISOString().split('T')[0];
 
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
-    const fileBuffer = fs.readFileSync(filePath);
+    const fileStream = createReadStream(zipPath);
 
     const headers = {
       'Authorization': `Basic ${btoa(`${username}:${password}`)}`
@@ -36,11 +37,14 @@ async function run() {
     console.log(`Uploading to: ${uploadUrl}`);
 
     const formData = new FormData();
-    formData.append("file", fileBuffer);
+    formData.append("file", fileStream);
     const response = await fetch(uploadUrl, {
-        "method": "POST",
-        "headers": headers,
-        "body": formData
+        method: "POST",
+        headers: {
+            Authorization: "Basic " + btoa(answers.username + ":" + answers.password),
+            Accept: "application/json",
+        },
+        body: formData,
     });
 
     if (response.status === 200 || response.status === 201) {
