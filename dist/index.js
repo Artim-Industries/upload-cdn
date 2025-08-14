@@ -43442,7 +43442,7 @@ async function run() {
     const dateFormattedAsText = new Date().toISOString().split('T')[0];
 
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
-    const fileStream = (0,external_fs_.createReadStream)(zipPath);
+    const fileStream = (0,external_fs_.createReadStream)(filePath);
 
     const headers = {
       'Authorization': `Basic ${index_btoa(`${username}:${password}`)}`

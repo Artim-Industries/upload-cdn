@@ -28,7 +28,7 @@ async function run() {
     const dateFormattedAsText = new Date().toISOString().split('T')[0];
 
     const uploadUrl = `https://artim-cdn.artim-industries.com/upload/ci/$/${username}/build-${dateFormattedAsText}/${fileName}.${fileExtension}`;
-    const fileStream = createReadStream(zipPath);
+    const fileStream = createReadStream(filePath);
 
     const headers = {
       'Authorization': `Basic ${btoa(`${username}:${password}`)}`
