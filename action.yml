@@ -1,0 +1,17 @@
+name: 'Upload Artifact to Artim-CDN'
+description: 'Upload a file to Artim-Industries CDN'
+author: 'Mauritz Lemgen'
+inputs:
+  path:
+    description: 'Path to file to upload'
+    required: true
+  username:
+    description: 'Username for path'
+    required: true
+  password:
+    description: 'Password for path'
+    required: true
+
+runs:
+  using: 'node16'
+  main: 'index.js'
