@@ -2,6 +2,8 @@ const core = require('@actions/core');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const FormData = require('form-data');
+import fetch from 'node-fetch';  
 
 // Base64 encode for Basic Auth
 function btoa(str) {
