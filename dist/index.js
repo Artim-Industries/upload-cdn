@@ -43458,7 +43458,7 @@ async function run() {
     });
 
     if (response.status === 200 || response.status === 201) {
-      const returnedUrl = response.data.url;
+      const returnedUrl = await response.json();
       console.log(`✅ Uploaded successfully: ${returnedUrl}`);
       core.setOutput('url', returnedUrl);
       core.setOutput('status', 'success');
