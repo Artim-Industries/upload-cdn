@@ -37,7 +37,6 @@ async function run() {
 
     const formData = new FormData();
     formData.append("file", fileBuffer);
-    formData.append("workflow_file", workflow);
     const response = await fetch(uploadUrl, {
         "method": "POST",
         "headers": headers,
