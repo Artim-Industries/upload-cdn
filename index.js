@@ -44,9 +44,10 @@ async function run() {
     });
 
     if (response.status === 200 || response.status === 201) {
-      const returnedUrl = await response.json();
-      console.log(`✅ Uploaded successfully: ${returnedUrl}`);
-      core.setOutput('url', returnedUrl);
+      const data = await response.json();
+      const url = data.url;
+      console.log(`✅ Uploaded successfully: ${url}`);
+      core.setOutput('url', url);
       core.setOutput('status', 'success');
     } else {
       core.setFailed(`Upload failed: ${response.status} ${response.statusText}`);
