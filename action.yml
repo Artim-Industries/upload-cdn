@@ -1,8 +1,10 @@
 name: 'Upload Artifact to Artim-CDN'
 description: 'Upload a file to Artim-Industries CDN'
 author: 'Mauritz Lemgen'
-icon: "upload-cloud"
-color: "blue"
+branding:
+  icon: "upload-cloud"
+  color: "blue"
+  
 inputs:
   path:
     description: 'Path to file to upload'
